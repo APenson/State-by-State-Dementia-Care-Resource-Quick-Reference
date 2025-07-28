@@ -1,0 +1,781 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>State-by-State Dementia Care Resource Quick Reference</title>
+    <style>
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            line-height: 1.6;
+            margin: 0;
+            padding: 20px;
+            background-color: #f8f9fa;
+            color: #333;
+        }
+        .header {
+            background: linear-gradient(135deg, #2c3e50, #3498db);
+            color: white;
+            padding: 30px;
+            border-radius: 10px;
+            margin-bottom: 30px;
+            text-align: center;
+        }
+        .header h1 {
+            margin: 0 0 10px 0;
+            font-size: 2.2em;
+        }
+        .header p {
+            margin: 0;
+            font-size: 1.1em;
+            opacity: 0.9;
+        }
+        .search-container {
+            background: white;
+            padding: 20px;
+            border-radius: 8px;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+            margin-bottom: 30px;
+            text-align: center;
+        }
+        .search-box {
+            width: 100%;
+            max-width: 400px;
+            padding: 12px;
+            font-size: 16px;
+            border: 2px solid #3498db;
+            border-radius: 25px;
+            outline: none;
+            transition: all 0.3s ease;
+        }
+        .search-box:focus {
+            border-color: #2c3e50;
+            box-shadow: 0 0 10px rgba(52, 152, 219, 0.3);
+        }
+        .legend {
+            background: white;
+            padding: 20px;
+            border-radius: 8px;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+            margin-bottom: 30px;
+        }
+        .legend h3 {
+            color: #2c3e50;
+            margin-top: 0;
+            border-bottom: 2px solid #3498db;
+            padding-bottom: 10px;
+        }
+        .legend-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 15px;
+            margin-top: 15px;
+        }
+        .legend-item {
+            display: flex;
+            align-items: center;
+            padding: 8px;
+            background: #f8f9fa;
+            border-radius: 5px;
+        }
+        .legend-icon {
+            width: 20px;
+            height: 20px;
+            margin-right: 10px;
+            border-radius: 3px;
+        }
+        .excellent { background-color: #27ae60; }
+        .good { background-color: #f39c12; }
+        .limited { background-color: #e74c3c; }
+        .state-container {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
+            gap: 20px;
+            margin-bottom: 30px;
+        }
+        .state-card {
+            background: white;
+            border-radius: 8px;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+            overflow: hidden;
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+        }
+        .state-card:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 4px 20px rgba(0,0,0,0.15);
+        }
+        .state-header {
+            background: linear-gradient(135deg, #34495e, #2c3e50);
+            color: white;
+            padding: 20px;
+            position: relative;
+        }
+        .state-name {
+            font-size: 1.4em;
+            font-weight: bold;
+            margin: 0;
+        }
+        .state-rating {
+            position: absolute;
+            top: 20px;
+            right: 20px;
+            background: rgba(255,255,255,0.2);
+            padding: 5px 10px;
+            border-radius: 15px;
+            font-size: 0.9em;
+        }
+        .state-content {
+            padding: 20px;
+        }
+        .resource-section {
+            margin-bottom: 20px;
+        }
+        .resource-section h4 {
+            color: #2c3e50;
+            margin: 0 0 10px 0;
+            font-size: 1em;
+            border-left: 3px solid #3498db;
+            padding-left: 10px;
+        }
+        .resource-list {
+            list-style: none;
+            padding: 0;
+            margin: 0;
+        }
+        .resource-list li {
+            padding: 5px 0;
+            border-bottom: 1px solid #eee;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+        .resource-list li:last-child {
+            border-bottom: none;
+        }
+        .resource-name {
+            font-weight: 500;
+        }
+        .resource-phone {
+            color: #3498db;
+            font-size: 0.9em;
+        }
+        .coverage-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 10px;
+            margin-top: 10px;
+        }
+        .coverage-item {
+            display: flex;
+            align-items: center;
+            padding: 5px;
+            border-radius: 3px;
+            font-size: 0.9em;
+        }
+        .coverage-dot {
+            width: 12px;
+            height: 12px;
+            border-radius: 50%;
+            margin-right: 8px;
+        }
+        .key-info {
+            background: #e8f4fd;
+            border-left: 4px solid #3498db;
+            padding: 10px;
+            margin: 10px 0;
+            border-radius: 0 5px 5px 0;
+        }
+        .key-info strong {
+            color: #2c3e50;
+        }
+        .quick-facts {
+            background: #f8f9fa;
+            padding: 15px;
+            border-radius: 5px;
+            margin-top: 15px;
+        }
+        .quick-facts h5 {
+            margin: 0 0 10px 0;
+            color: #2c3e50;
+        }
+        .fact-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+            gap: 10px;
+        }
+        .fact-item {
+            text-align: center;
+            padding: 8px;
+            background: white;
+            border-radius: 3px;
+        }
+        .fact-number {
+            font-size: 1.2em;
+            font-weight: bold;
+            color: #3498db;
+        }
+        .fact-label {
+            font-size: 0.8em;
+            color: #666;
+        }
+        .hidden {
+            display: none;
+        }
+        @media (max-width: 768px) {
+            .state-container {
+                grid-template-columns: 1fr;
+            }
+            .coverage-grid {
+                grid-template-columns: 1fr;
+            }
+            .legend-grid {
+                grid-template-columns: 1fr;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="header">
+        <h1>State-by-State Dementia Care Resource Quick Reference</h1>
+        <p>Your complete guide to dementia care resources, Medicaid waivers, and support services across all 50 states</p>
+    </div>
+
+    <div class="search-container">
+        <input type="text" id="stateSearch" class="search-box" placeholder="Search for your state...">
+    </div>
+
+    <div class="legend">
+        <h3>Coverage Rating Legend</h3>
+        <div class="legend-grid">
+            <div class="legend-item">
+                <div class="legend-icon excellent"></div>
+                <span><strong>Excellent:</strong> Comprehensive waiver programs, generous benefits</span>
+            </div>
+            <div class="legend-item">
+                <div class="legend-icon good"></div>
+                <span><strong>Good:</strong> Solid programs with moderate waiting lists</span>
+            </div>
+            <div class="legend-item">
+                <div class="legend-icon limited"></div>
+                <span><strong>Limited:</strong> Basic programs, long waiting lists, or restrictive eligibility</span>
+            </div>
+        </div>
+    </div>
+
+    <div class="state-container" id="stateContainer">
+        <!-- Alabama -->
+        <div class="state-card" data-state="alabama">
+            <div class="state-header">
+                <h3 class="state-name">Alabama</h3>
+                <div class="state-rating">Good Coverage</div>
+            </div>
+            <div class="state-content">
+                <div class="resource-section">
+                    <h4>📞 Key Contacts</h4>
+                    <ul class="resource-list">
+                        <li>
+                            <span class="resource-name">Alabama Dept. of Senior Services</span>
+                            <span class="resource-phone">(334) 242-5743</span>
+                        </li>
+                        <li>
+                            <span class="resource-name">Medicaid Agency</span>
+                            <span class="resource-phone">(334) 242-5000</span>
+                        </li>
+                        <li>
+                            <span class="resource-name">Alzheimer's Association</span>
+                            <span class="resource-phone">(800) 272-3900</span>
+                        </li>
+                    </ul>
+                </div>
+                
+                <div class="resource-section">
+                    <h4>🏠 Medicaid Waiver Programs</h4>
+                    <div class="coverage-grid">
+                        <div class="coverage-item">
+                            <div class="coverage-dot good"></div>
+                            <span>Elderly & Disabled Waiver</span>
+                        </div>
+                        <div class="coverage-item">
+                            <div class="coverage-dot good"></div>
+                            <span>Personal Care Services</span>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="key-info">
+                    <strong>Key Info:</strong> Alabama has moderate waiting lists (6-12 months). Strong personal care services coverage.
+                </div>
+
+                <div class="quick-facts">
+                    <h5>Quick Facts</h5>
+                    <div class="fact-grid">
+                        <div class="fact-item">
+                            <div class="fact-number">$2,742</div>
+                            <div class="fact-label">Monthly Income Limit</div>
+                        </div>
+                        <div class="fact-item">
+                            <div class="fact-number">90,000+</div>
+                            <div class="fact-label">Seniors with Dementia</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Alaska -->
+        <div class="state-card" data-state="alaska">
+            <div class="state-header">
+                <h3 class="state-name">Alaska</h3>
+                <div class="state-rating">Limited Coverage</div>
+            </div>
+            <div class="state-content">
+                <div class="resource-section">
+                    <h4>📞 Key Contacts</h4>
+                    <ul class="resource-list">
+                        <li>
+                            <span class="resource-name">Alaska Commission on Aging</span>
+                            <span class="resource-phone">(907) 465-3250</span>
+                        </li>
+                        <li>
+                            <span class="resource-name">Medicaid Office</span>
+                            <span class="resource-phone">(907) 465-3030</span>
+                        </li>
+                        <li>
+                            <span class="resource-name">Senior & Disabilities Services</span>
+                            <span class="resource-phone">(907) 465-3372</span>
+                        </li>
+                    </ul>
+                </div>
+                
+                <div class="resource-section">
+                    <h4>🏠 Medicaid Waiver Programs</h4>
+                    <div class="coverage-grid">
+                        <div class="coverage-item">
+                            <div class="coverage-dot limited"></div>
+                            <span>Adults with Physical/Mental Disabilities</span>
+                        </div>
+                        <div class="coverage-item">
+                            <div class="coverage-dot limited"></div>
+                            <span>Alaskans Living Independently</span>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="key-info">
+                    <strong>Key Info:</strong> Limited rural access. High costs due to geographic challenges. Long waiting lists.
+                </div>
+
+                <div class="quick-facts">
+                    <h5>Quick Facts</h5>
+                    <div class="fact-grid">
+                        <div class="fact-item">
+                            <div class="fact-number">$2,742</div>
+                            <div class="fact-label">Monthly Income Limit</div>
+                        </div>
+                        <div class="fact-item">
+                            <div class="fact-number">8,000+</div>
+                            <div class="fact-label">Seniors with Dementia</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Arizona -->
+        <div class="state-card" data-state="arizona">
+            <div class="state-header">
+                <h3 class="state-name">Arizona</h3>
+                <div class="state-rating">Excellent Coverage</div>
+            </div>
+            <div class="state-content">
+                <div class="resource-section">
+                    <h4>📞 Key Contacts</h4>
+                    <ul class="resource-list">
+                        <li>
+                            <span class="resource-name">Area Agency on Aging</span>
+                            <span class="resource-phone">(602) 542-4446</span>
+                        </li>
+                        <li>
+                            <span class="resource-name">ALTCS Administration</span>
+                            <span class="resource-phone">(602) 417-4000</span>
+                        </li>
+                        <li>
+                            <span class="resource-name">Arizona Dept. of Economic Security</span>
+                            <span class="resource-phone">(855) 432-7587</span>
+                        </li>
+                    </ul>
+                </div>
+                
+                <div class="resource-section">
+                    <h4>🏠 Medicaid Waiver Programs</h4>
+                    <div class="coverage-grid">
+                        <div class="coverage-item">
+                            <div class="coverage-dot excellent"></div>
+                            <span>ALTCS (Long-Term Care)</span>
+                        </div>
+                        <div class="coverage-item">
+                            <div class="coverage-dot excellent"></div>
+                            <span>Home & Community Based Services</span>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="key-info">
+                    <strong>Key Info:</strong> ALTCS is one of the most comprehensive programs in the US. No waiting list for eligible individuals.
+                </div>
+
+                <div class="quick-facts">
+                    <h5>Quick Facts</h5>
+                    <div class="fact-grid">
+                        <div class="fact-item">
+                            <div class="fact-number">$2,742</div>
+                            <div class="fact-label">Monthly Income Limit</div>
+                        </div>
+                        <div class="fact-item">
+                            <div class="fact-number">140,000+</div>
+                            <div class="fact-label">Seniors with Dementia</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Arkansas -->
+        <div class="state-card" data-state="arkansas">
+            <div class="state-header">
+                <h3 class="state-name">Arkansas</h3>
+                <div class="state-rating">Good Coverage</div>
+            </div>
+            <div class="state-content">
+                <div class="resource-section">
+                    <h4>📞 Key Contacts</h4>
+                    <ul class="resource-list">
+                        <li>
+                            <span class="resource-name">Division of Aging & Adult Services</span>
+                            <span class="resource-phone">(501) 682-2441</span>
+                        </li>
+                        <li>
+                            <span class="resource-name">DHS - Medicaid</span>
+                            <span class="resource-phone">(501) 682-1001</span>
+                        </li>
+                        <li>
+                            <span class="resource-name">Independent Choices</span>
+                            <span class="resource-phone">(501) 320-8700</span>
+                        </li>
+                    </ul>
+                </div>
+                
+                <div class="resource-section">
+                    <h4>🏠 Medicaid Waiver Programs</h4>
+                    <div class="coverage-grid">
+                        <div class="coverage-item">
+                            <div class="coverage-dot good"></div>
+                            <span>Independent Choices Waiver</span>
+                        </div>
+                        <div class="coverage-item">
+                            <div class="coverage-dot good"></div>
+                            <span>ElderChoices Waiver</span>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="key-info">
+                    <strong>Key Info:</strong> Strong Independent Choices program allows self-direction. Moderate waiting times.
+                </div>
+
+                <div class="quick-facts">
+                    <h5>Quick Facts</h5>
+                    <div class="fact-grid">
+                        <div class="fact-item">
+                            <div class="fact-number">$2,742</div>
+                            <div class="fact-label">Monthly Income Limit</div>
+                        </div>
+                        <div class="fact-item">
+                            <div class="fact-number">57,000+</div>
+                            <div class="fact-label">Seniors with Dementia</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- California -->
+        <div class="state-card" data-state="california">
+            <div class="state-header">
+                <h3 class="state-name">California</h3>
+                <div class="state-rating">Excellent Coverage</div>
+            </div>
+            <div class="state-content">
+                <div class="resource-section">
+                    <h4>📞 Key Contacts</h4>
+                    <ul class="resource-list">
+                        <li>
+                            <span class="resource-name">Dept. of Aging</span>
+                            <span class="resource-phone">(916) 419-7500</span>
+                        </li>
+                        <li>
+                            <span class="resource-name">DHCS - Medi-Cal</span>
+                            <span class="resource-phone">(916) 440-7400</span>
+                        </li>
+                        <li>
+                            <span class="resource-name">In-Home Supportive Services</span>
+                            <span class="resource-phone">(866) 613-3777</span>
+                        </li>
+                    </ul>
+                </div>
+                
+                <div class="resource-section">
+                    <h4>🏠 Medicaid Waiver Programs</h4>
+                    <div class="coverage-grid">
+                        <div class="coverage-item">
+                            <div class="coverage-dot excellent"></div>
+                            <span>In-Home Supportive Services (IHSS)</span>
+                        </div>
+                        <div class="coverage-item">
+                            <div class="coverage-dot excellent"></div>
+                            <span>Multipurpose Senior Services Program</span>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="key-info">
+                    <strong>Key Info:</strong> IHSS is one of the most generous programs nationally. No waiting list for most services.
+                </div>
+
+                <div class="quick-facts">
+                    <h5>Quick Facts</h5>
+                    <div class="fact-grid">
+                        <div class="fact-item">
+                            <div class="fact-number">$2,742</div>
+                            <div class="fact-label">Monthly Income Limit</div>
+                        </div>
+                        <div class="fact-item">
+                            <div class="fact-number">650,000+</div>
+                            <div class="fact-label">Seniors with Dementia</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Colorado -->
+        <div class="state-card" data-state="colorado">
+            <div class="state-header">
+                <h3 class="state-name">Colorado</h3>
+                <div class="state-rating">Excellent Coverage</div>
+            </div>
+            <div class="state-content">
+                <div class="resource-section">
+                    <h4>📞 Key Contacts</h4>
+                    <ul class="resource-list">
+                        <li>
+                            <span class="resource-name">Dept. of Human Services - Aging</span>
+                            <span class="resource-phone">(303) 866-2800</span>
+                        </li>
+                        <li>
+                            <span class="resource-name">Health Care Policy & Financing</span>
+                            <span class="resource-phone">(303) 866-2993</span>
+                        </li>
+                        <li>
+                            <span class="resource-name">No Wrong Door Colorado</span>
+                            <span class="resource-phone">(855) 264-6372</span>
+                        </li>
+                    </ul>
+                </div>
+                
+                <div class="resource-section">
+                    <h4>🏠 Medicaid Waiver Programs</h4>
+                    <div class="coverage-grid">
+                        <div class="coverage-item">
+                            <div class="coverage-dot excellent"></div>
+                            <span>Elderly, Blind & Disabled Waiver</span>
+                        </div>
+                        <div class="coverage-item">
+                            <div class="coverage-dot excellent"></div>
+                            <span>Community Mental Health Supports</span>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="key-info">
+                    <strong>Key Info:</strong> Comprehensive coverage with minimal waiting lists. Strong community-based services.
+                </div>
+
+                <div class="quick-facts">
+                    <h5>Quick Facts</h5>
+                    <div class="fact-grid">
+                        <div class="fact-item">
+                            <div class="fact-number">$2,742</div>
+                            <div class="fact-label">Monthly Income Limit</div>
+                        </div>
+                        <div class="fact-item">
+                            <div class="fact-number">76,000+</div>
+                            <div class="fact-label">Seniors with Dementia</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Connecticut -->
+        <div class="state-card" data-state="connecticut">
+            <div class="state-header">
+                <h3 class="state-name">Connecticut</h3>
+                <div class="state-rating">Excellent Coverage</div>
+            </div>
+            <div class="state-content">
+                <div class="resource-section">
+                    <h4>📞 Key Contacts</h4>
+                    <ul class="resource-list">
+                        <li>
+                            <span class="resource-name">Dept. of Social Services</span>
+                            <span class="resource-phone">(855) 626-6632</span>
+                        </li>
+                        <li>
+                            <span class="resource-name">Dept. of Aging & Disability Services</span>
+                            <span class="resource-phone">(860) 424-5274</span>
+                        </li>
+                        <li>
+                            <span class="resource-name">CT Home Care Program</span>
+                            <span class="resource-phone">(860) 424-5090</span>
+                        </li>
+                    </ul>
+                </div>
+                
+                <div class="resource-section">
+                    <h4>🏠 Medicaid Waiver Programs</h4>
+                    <div class="coverage-grid">
+                        <div class="coverage-item">
+                            <div class="coverage-dot excellent"></div>
+                            <span>Connecticut Home Care Program</span>
+                        </div>
+                        <div class="coverage-item">
+                            <div class="coverage-dot excellent"></div>
+                            <span>Personal Care Assistance</span>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="key-info">
+                    <strong>Key Info:</strong> One of the most generous programs in New England. Short to no waiting lists.
+                </div>
+
+                <div class="quick-facts">
+                    <h5>Quick Facts</h5>
+                    <div class="fact-grid">
+                        <div class="fact-item">
+                            <div class="fact-number">$2,742</div>
+                            <div class="fact-label">Monthly Income Limit</div>
+                        </div>
+                        <div class="fact-item">
+                            <div class="fact-number">65,000+</div>
+                            <div class="fact-label">Seniors with Dementia</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Delaware -->
+        <div class="state-card" data-state="delaware">
+            <div class="state-header">
+                <h3 class="state-name">Delaware</h3>
+                <div class="state-rating">Good Coverage</div>
+            </div>
+            <div class="state-content">
+                <div class="resource-section">
+                    <h4>📞 Key Contacts</h4>
+                    <ul class="resource-list">
+                        <li>
+                            <span class="resource-name">Dept. of Health & Social Services</span>
+                            <span class="resource-phone">(302) 255-9040</span>
+                        </li>
+                        <li>
+                            <span class="resource-name">Division of Services for Aging</span>
+                            <span class="resource-phone">(302) 255-9390</span>
+                        </li>
+                        <li>
+                            <span class="resource-name">Delaware ADRC</span>
+                            <span class="resource-phone">(800) 336-9500</span>
+                        </li>
+                    </ul>
+                </div>
+                
+                <div class="resource-section">
+                    <h4>🏠 Medicaid Waiver Programs</h4>
+                    <div class="coverage-grid">
+                        <div class="coverage-item">
+                            <div class="coverage-dot good"></div>
+                            <span>Diamond State Health Plan Plus</span>
+                        </div>
+                        <div class="coverage-item">
+                            <div class="coverage-dot good"></div>
+                            <span>Elderly & Disabled Waiver</span>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="key-info">
+                    <strong>Key Info:</strong> Moderate coverage with manageable waiting lists. Strong coordination between agencies.
+                </div>
+
+                <div class="quick-facts">
+                    <h5>Quick Facts</h5>
+                    <div class="fact-grid">
+                        <div class="fact-item">
+                            <div class="fact-number">$2,742</div>
+                            <div class="fact-label">Monthly Income Limit</div>
+                        </div>
+                        <div class="fact-item">
+                            <div class="fact-number">18,000+</div>
+                            <div class="fact-label">Seniors with Dementia</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Florida -->
+        <div class="state-card" data-state="florida">
+            <div class="state-header">
+                <h3 class="state-name">Florida</h3>
+                <div class="state-rating">Good Coverage</div>
+            </div>
+            <div class="state-content">
+                <div class="resource-section">
+                    <h4>📞 Key Contacts</h4>
+                    <ul class="resource-list">
+                        <li>
+                            <span class="resource-name">Dept. of Elder Affairs</span>
+                            <span class="resource-phone">(850) 414-2000</span>
+                        </li>
+                        <li>
+                            <span class="resource-name">Agency for Health Care Administration</span>
+                            <span class="resource-phone">(888) 419-3456</span>
+                        </li>
+                        <li>
+                            <span class="resource-name">SHINE (Health Insurance Assistance)</span>
+                            <span class="resource-phone">(800) 963-5337</span>
+                        </li>
+                    </ul>
+                </div>
+                
+                <div class="resource-section">
+                    <h4>🏠 Medicaid Waiver Programs</h4>
+                    <div class="coverage-grid">
+                        <div class="coverage-item">
+                            <div class="coverage-dot good"></div>
+                            <span>Assisted Living Waiver</span>
+                        </div>
+                        <div class="coverage-item">
+                            <div class="coverage-dot good"></div>
+                            <span>Home & Community Based Services</span>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="key-info">
+                    <strong>Key Info:</strong> Large senior population creates high demand. Moderate waiting lists vary by region.
+                </div>
+
+                <div class="
